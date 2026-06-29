@@ -1,0 +1,347 @@
+openapi: 3.0.3
+
+info:
+  title: Product Service API
+  version: 1.0.0
+  description: E-Commerce Product Service
+
+servers:
+  - url: http://localhost:9999
+
+tags:
+  - name: Category
+  - name: Brand
+  - name: Product
+
+paths:
+
+  /api/v1/categories:
+
+    post:
+      tags:
+        - Category
+      operationId: createCategory
+      summary: Create Category
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCategoryRequest'
+
+      responses:
+        '201':
+          description: Category Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+
+    get:
+      tags:
+        - Category
+      operationId: getAllCategories
+      summary: Get All Categories
+
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryResponse'
+
+  /api/v1/categories/{id}:
+
+    get:
+      tags:
+        - Category
+      operationId: getCategoryById
+      summary: Get Category By Id
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+
+    put:
+      tags:
+        - Category
+      operationId: updateCategory
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCategoryRequest'
+
+      responses:
+        '200':
+          description: Updated
+
+    delete:
+      tags:
+        - Category
+      operationId: deleteCategory
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+
+      responses:
+        '204':
+          description: Deleted
+
+components:
+
+  schemas:
+
+    CreateCategoryRequest:
+      type: object
+      required:
+        - categoryCode
+        - categoryName
+
+      properties:
+        categoryCode:
+          type: string
+          example: MOB
+
+        categoryName:
+          type: string
+          example: Mobiles
+
+        description:
+          type: string
+          example: Mobile Products
+
+    UpdateCategoryRequest:
+      type: object
+
+      properties:
+        categoryName:
+          type: string
+
+        description:
+          type: string
+
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - INACTIVE
+
+    CategoryResponse:
+      type: object
+
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+
+        categoryCode:
+          type: string
+          example: MOB
+
+        categoryName:
+          type: string
+          example: Mobiles
+
+        description:
+          type: string
+          example: Mobile Products
+
+        status:
+          type: string
+          example: ACTIVE
+
+        createdAt:
+          type: string
+          format: date-time
+
+        updatedAt:
+          type: string
+          format: date-time
+
+    CreateBrandRequest:
+      type: object
+
+      properties:
+        brandCode:
+          type: string
+          example: APPLE
+
+        brandName:
+          type: string
+          example: Apple
+
+        description:
+          type: string
+
+    UpdateBrandRequest:
+      type: object
+
+      properties:
+        brandName:
+          type: string
+
+        description:
+          type: string
+
+        status:
+          type: string
+
+    BrandResponse:
+      type: object
+
+      properties:
+        id:
+          type: integer
+          format: int64
+
+        brandCode:
+          type: string
+
+        brandName:
+          type: string
+
+        description:
+          type: string
+
+        status:
+          type: string
+
+    CreateProductRequest:
+      type: object
+
+      required:
+        - productCode
+        - productName
+        - categoryId
+        - brandId
+
+      properties:
+        productCode:
+          type: string
+          example: IPHONE15
+
+        productName:
+          type: string
+          example: iPhone 15
+
+        description:
+          type: string
+
+        price:
+          type: number
+          format: double
+          example: 79999
+
+        stockQuantity:
+          type: integer
+          example: 100
+
+        categoryId:
+          type: integer
+          format: int64
+
+        brandId:
+          type: integer
+          format: int64
+
+    UpdateProductRequest:
+      type: object
+
+      properties:
+        productName:
+          type: string
+
+        description:
+          type: string
+
+        price:
+          type: number
+          format: double
+
+        stockQuantity:
+          type: integer
+
+        status:
+          type: string
+
+    ProductResponse:
+      type: object
+
+      properties:
+        id:
+          type: integer
+          format: int64
+
+        productCode:
+          type: string
+
+        productName:
+          type: string
+
+        description:
+          type: string
+
+        price:
+          type: number
+          format: double
+
+        stockQuantity:
+          type: integer
+
+        categoryId:
+          type: integer
+          format: int64
+
+        categoryName:
+          type: string
+
+        brandId:
+          type: integer
+          format: int64
+
+        brandName:
+          type: string
+
+        status:
+          type: string
+
+        createdAt:
+          type: string
+          format: date-time
+
+        updatedAt:
+          type: string
+          format: date-time

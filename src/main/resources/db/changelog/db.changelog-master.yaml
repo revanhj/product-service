@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changes/001_create_schema.sql
+
+  - include:
+      file: db/changelog/changes/002_create_categories.sql
+
+  - include:
+      file: db/changelog/changes/003_create_brands.sql
+
+  - include:
+      file: db/changelog/changes/004_create_products.sql
+
+  - include:
+      file: db/changelog/changes/005_create_product_images.sql
+
+  - include:
+      file: db/changelog/changes/006_create_product_attributes.sql
+
+  - include:
+      file: db/changelog/changes/007_create_product_attribute_values.sql
+
+  - include:
+      file: db/changelog/changes/008_create_indexes.sql
+
+  - include:
+      file: db/changelog/changes/009_seed_data.sql

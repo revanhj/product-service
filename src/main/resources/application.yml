@@ -23,7 +23,30 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: info,health,metrics,prometheus
+
+  endpoint:
+    health:
+      show-details: always
+
+  health:
+    defaults:
+      enabled: true
+    circuitbreakers:
+      enabled: true
+
+  metrics:
+    tags:
+      application: product-service
+
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+
+  otlp:
+    tracing:
+      endpoint: http://localhost:4318/v1/traces
 
 springdoc:
   api-docs:
@@ -36,7 +59,7 @@ springdoc:
 
 logging:
   level:
-    liquibase: DEBUG
-    liquibase.executor: DEBUG
-    liquibase.changelog: DEBUG
-    org.springframework.boot.autoconfigure.liquibase: DEBUG
+    liquibase: INFO
+    liquibase.executor: INFO
+    liquibase.changelog: INFO
+    org.springframework.boot.autoconfigure.liquibase: INFO
